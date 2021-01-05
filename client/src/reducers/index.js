@@ -1,8 +1,36 @@
+export const FETCHING_SMURF = 'FETCHING_SMURF';
+export const FETCHING_SMURF_ADD_SUCCESS = 'FETCHING_SMURF_SUCCESS';
+export const FETCHING_SMURF_FAILURE = 'FETCHING_SMURF_FAILURE';
 
 export const initialState = {
+    isFetching: false,
+    error: '',
+    smurfs: []
 }
 
-const reducer = ()=>{
+const reducer = (state = initialState, action) => {
+    switch (action.type) {
+        case (FETCHING_SMURF):
+            return ({
+                ...state,
+                isFetching: true,
+                error: ''
+            })
+        case (FETCHING_SMURF_ADD_SUCCESS):
+            return ({
+                ...state,
+                isFetching: false,
+                smurfs: action.payload
+            })
+        case (FETCHING_SMURF_FAILURE):
+            return ({
+                ...state,
+                isFetching: false,
+                error: action.payload
+            })
+        default:
+            return state
+    }
 }
 
 export default reducer;

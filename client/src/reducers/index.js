@@ -1,6 +1,5 @@
-export const FETCHING_SMURF = 'FETCHING_SMURF';
-export const FETCHING_SMURF_ADD_SUCCESS = 'FETCHING_SMURF_SUCCESS';
-export const FETCHING_SMURF_FAILURE = 'FETCHING_SMURF_FAILURE';
+import { FETCHING_SMURF, FETCHING_SMURF_ADD_SUCCESS, FETCHING_SMURF_FAILURE } from './../actions/index'
+
 
 export const initialState = {
     isFetching: false,

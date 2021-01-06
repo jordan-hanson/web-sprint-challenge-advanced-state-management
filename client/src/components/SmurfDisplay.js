@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { getSmurf } from '../actions/index';
+
 
 // export class SmurfDisplay extends React.Component {
 //     render() {
@@ -17,19 +20,29 @@ import React from 'react';
 //     }
 const SmurfDisplay = (props) => {
     console.log(props, 'props')
+    useEffect(() => {
+        getSmurf();
+        console.log("test");
+    }, []);
+
     return (<div className="smurfDisplay">
         {props.smurfs.map((smurf) => (
             <div key={smurf.id}>
                 name: {smurf.name} <br />
-                    Nickname: {smurf.age} <br />
-                    PositionField: {smurf.height} <br />
+                    nickname: {smurf.age} <br />
+                    positionField: {smurf.height} <br />
             </div>
         ))
         }
     </div>
     )
 };
-export default SmurfDisplay
+const mapStateToProps = state => {
+    return {
+        smurfs: state.smurfs
+    }
+}
+export default connect(mapStateToProps, { getSmurf })(SmurfDisplay)
 
 //Task List:
 //1. Import in all needed components and library methods.

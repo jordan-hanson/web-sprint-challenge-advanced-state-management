@@ -4,7 +4,13 @@ import { FETCHING_SMURF, ADD_SMURF, FETCHING_SMURF_SUCCESS, FETCHING_SMURF_FAILU
 export const initialState = {
     isFetching: false,
     error: '',
-    smurfs: [],
+    smurfs: [
+        {
+            name: 'Smurf1',
+            nickname: 'Smurfette',
+            positionField: 'Treasurer'
+        },
+    ],
     newSmurf: {
         name: '',
         nickname: '',
@@ -15,30 +21,34 @@ export const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case (FETCHING_SMURF):
-            return ({
+        case FETCHING_SMURF:
+            return {
                 ...state
-            })
-        case (FETCHING_SMURF_SUCCESS):
-            return ({
+            };
+        case FETCHING_SMURF_SUCCESS:
+            return {
                 ...state,
-                smurfs: action.payload
-
-            })
-        case (ADD_SMURF):
-            return ({
-                ...state,
-                isFetching: false,
                 smurfs: action.payload,
                 newSmurf: action.payload
-            })
-        case (FETCHING_SMURF_FAILURE):
-            return ({
+
+            };
+        case ADD_SMURF:
+            const newSmurf = {
+                name: action.payload,
+                nickname: action.payload,
+                positionField: action.payload
+            }
+            return {
+                ...state,
+                smurfs: [...state.smurfs, newSmurf]
+            };
+        case FETCHING_SMURF_FAILURE:
+            return {
                 ...state,
                 isFetching: false,
                 error: action.payload,
                 errorMessage: 'Woops! something went wrong.'
-            })
+            }
         default:
             return state
     }

@@ -1,14 +1,35 @@
 import React from 'react';
 
-export class SmurfDisplay extends React.Component {
-    render() {
-        return(<div>
-            
-        </div>)
-    }
-}
+// export class SmurfDisplay extends React.Component {
+//     render() {
+//         return (<div className="smurfDisplay">
+//             {props.smurfs.map((smurf) => (
+//                 <div key={smurf.id}>
+//                     Name: {smurf.name} <br />
+//                     Age: {smurf.age} <br />
+//                     Height: {smurf.height} <br />
+//                 </div>
+//             ))
+//             }
+//         </div>
+//         )
 
-export default SmurfDisplay;
+//     }
+const SmurfDisplay = (props) => {
+    console.log(props, 'props')
+    return (<div className="smurfDisplay">
+        {props.smurfs.map((smurf) => (
+            <div key={smurf.id}>
+                name: {smurf.name} <br />
+                    Nickname: {smurf.age} <br />
+                    PositionField: {smurf.height} <br />
+            </div>
+        ))
+        }
+    </div>
+    )
+};
+export default SmurfDisplay
 
 //Task List:
 //1. Import in all needed components and library methods.

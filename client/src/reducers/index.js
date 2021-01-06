@@ -1,31 +1,43 @@
-import { FETCHING_SMURF, FETCHING_SMURF_ADD_SUCCESS, FETCHING_SMURF_FAILURE } from './../actions/index'
+import { FETCHING_SMURF, ADD_SMURF, FETCHING_SMURF_SUCCESS, FETCHING_SMURF_FAILURE } from './../actions/index'
 
 
 export const initialState = {
     isFetching: false,
     error: '',
-    smurfs: []
+    smurfs: [],
+    newSmurf: {
+        name: '',
+        nickname: '',
+        positionField: ''
+    }
+
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case (FETCHING_SMURF):
             return ({
-                ...state,
-                isFetching: true,
-                error: ''
+                ...state
             })
-        case (FETCHING_SMURF_ADD_SUCCESS):
+        case (FETCHING_SMURF_SUCCESS):
+            return ({
+                ...state,
+                smurfs: action.payload
+
+            })
+        case (ADD_SMURF):
             return ({
                 ...state,
                 isFetching: false,
-                smurfs: action.payload
+                smurfs: action.payload,
+                newSmurf: action.payload
             })
         case (FETCHING_SMURF_FAILURE):
             return ({
                 ...state,
                 isFetching: false,
-                error: action.payload
+                error: action.payload,
+                errorMessage: 'Woops! something went wrong.'
             })
         default:
             return state

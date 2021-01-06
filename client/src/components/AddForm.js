@@ -1,24 +1,95 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { getSmurf, addSmurf } from '../actions/index';
 
-class AddForm extends React.Component {
+const AddForm = (props) => {
+    console.log(props)
+    const [formValues, setFormValues] = useState({
+        name: '',
+        nickname: '',
+        positionField: ''
+    })
 
-    render() {
-        return(<section>
-            <h2>Add Smurf</h2>
-            <form>
-                <div className="form-group">
-                    <label htmlFor="name">Name:</label><br/>
-                    <input onChange={this.handleChange} name="name" id="name" />
-                </div>
-
-                <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: </div>
-                <button>Submit Smurf</button>
-            </form>
-        </section>);
+    const onSubmit = (e) => {
+        console.log(formValues)
+        e.preventDefault()
+        props.addSmurf(formValues)
     }
+
+    const onChange = (e) => {
+        const newSmurfData = {
+            ...formValues,
+            [e.target.name]: e.target.value
+        }
+        setFormValues(newSmurfData)
+        // console.log(formValues, 'this is the form values being submitted')
+    }
+
+    return (
+        <div>
+            <form onSubmit={onSubmit}>
+                <h2>Add Smurf to the Village</h2>
+                <label>
+                    Name:
+                    <input
+                        name="name"
+                        type="text"
+                        value={formValues.name}
+                        onChange={onChange} />
+                </label>
+                <br />
+                <label>
+                    Nickname:
+                    <input
+                        name="nickname"
+                        type="text"
+                        value={formValues.nickname}
+                        onChange={onChange} />
+                </label>
+                <br />
+                <label>
+                    Position:
+                    <input
+                        name="positionField"
+                        type="text"
+                        value={formValues.positionField}
+                        onChange={onChange} />
+                </label>
+                <br />
+                <button onSubmit={onSubmit}>Add Smurf</button>
+            </form>
+        </div>
+    )
 }
 
-export default AddForm;
+const mapStateToProps = state => {
+    return {
+        smurfs: state.smurfs
+    }
+}
+export default connect(mapStateToProps, { getSmurf, addSmurf })(AddForm)
+
+
+
+// class AddForm extends React.Component {
+
+//     render() {
+//         return(<section>
+//             <h2>Add Smurf</h2>
+//             <form>
+//                 <div className="form-group">
+//                     <label htmlFor="name">Name:</label><br/>
+//                     <input onChange={this.handleChange} name="name" id="name" />
+//                 </div>
+
+//                 <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: </div>
+//                 <button>Submit Smurf</button>
+//             </form>
+//         </section>);
+//     }
+// }
+
+// export default AddForm;
 
 //Task List:
 //1. Add in all necessary import components and library methods.
